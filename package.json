@@ -1,0 +1,22 @@
+{
+  "name": "that-one-bot",
+  "version": "1.0.0",
+  "description": "that-one-bot",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Drakma/that-one-bot.git"
+  },
+  "author": "Drakma",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Drakma/that-one-bot/issues"
+  },
+  "homepage": "https://github.com/Drakma/that-one-bot#readme",
+  "devDependencies": {
+    "electron": "^2.0.9"
+  }
+}
