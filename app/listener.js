@@ -4,6 +4,7 @@ var fs = require('fs');
 var app = express();
 var expressWs = require('express-ws')(app);
 var filesDir = __dirname + "/files/";
+var configDir = __dirname + "/config/";
 
 //app.use(express.static('config'));
 //app.use(express.static('bot'));
@@ -16,16 +17,40 @@ app.use(function (req, res, next) {
 
 app.ws('/keywords', function(ws, req) {
   ws.on('message', function(msg) {
-    fs.writeFile(filesDir + 'hashtags.json', msg, function(err) {
-      if(err) return console.log(err);
-      console.log('Hashtag Data Saved');
-    });
-    var message = JSON.parse(msg);
-    var keywords = message.keywords;
-    for(i = 0; i < keywords.length; i++) {
-      fs.writeFile(filesDir + '' + keywords[i] + '.txt', message.values[i] , function(err) {
-        if(err) return console.log(err);
-      });
+    var data = JSON.parse(msg);
+    switch(data.event) {
+      case "REFRESH" :
+        fs.readFile(filesDir + "hashtags.json", function(err, data) {
+          if (err) return console.log(err);
+          var message = JSON.parse(data);
+          var keywords = message.keywords;
+          for (i = 0; i < keywords.length; i++) {
+            fs.writeFile(filesDir + '' + keywords[i] + '.txt', message.values[i], function (err) {
+              if (err) return console.log(err);
+            });
+          }
+        });
+        break;
+      case "GET" :
+        fs.readFile(filesDir + 'hashtags.json', function (err, data) {
+          if (err) return console.log(err);
+          var timerjs = JSON.parse(data);
+          ws.send(JSON.stringify(timerjs));
+        });
+        break;
+      default:
+        fs.writeFile(filesDir + 'hashtags.json', msg, function (err) {
+          if (err) return console.log(err);
+          console.log('Hashtag Data Saved');
+        });
+        var message = JSON.parse(msg);
+        var keywords = message.keywords;
+        for (i = 0; i < keywords.length; i++) {
+          fs.writeFile(filesDir + '' + keywords[i] + '.txt', message.values[i], function (err) {
+            if (err) return console.log(err);
+          });
+        }
+      
     }
   });
 });
@@ -40,6 +65,13 @@ app.ws('/timer', function(ws, req) {
             if(err) return console.log(err);
           });
         };
+        break;
+      case "GET":
+        fs.readFile(filesDir + 'timer.json', function (err, data) {
+          if (err) return console.log(err);
+          var timerjs = JSON.parse(data);
+          ws.send(JSON.stringify(timerjs));
+        });
         break;
       case "TICK":
         fs.readFile(filesDir + 'timer.json', function(err, data) {

@@ -1,6 +1,5 @@
 console.log('loading irc.js');
-
-var config = require('./config.json');
+var config = require('./config/config.json');
 
 var irc = new WebSocket('wss://irc-ws.chat.twitch.tv:443/irc');
 
@@ -27,7 +26,6 @@ irc.onmessage = function (message) {
           var mss = document.createElement('div');
           mss.className = 'row';
           var emoteMsg = parsed.message;
-          console.log(emoteMsg);
           msg = msg.replace('%c', parsed.tags.color).replace('%u', parsed.tags['display-name']).replace('%m', emoteMsg);
           mss.innerHTML = msg;
           Chat.appendChild(mss);

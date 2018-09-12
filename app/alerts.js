@@ -1,5 +1,5 @@
-var config   = require('./config.json');
-var hashtags = require('./hashtags.json');
+var config   = require('./config/config.json');
+var hashtags = require('./files/hashtags.json');
 var localws  = new WebSocket('ws://localhost:3000/keywords');
 var timerws  = new WebSocket('ws://localhost:3000/timer');
 var socket   = new WebSocket(config.wssite);
