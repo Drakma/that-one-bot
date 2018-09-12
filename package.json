@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/Drakma/that-one-bot#readme",
   "devDependencies": {
-    "electron": "^2.0.9"
+    "electron": "^2.0.9",
+    "electron-packager": "^12.1.1"
   },
   "dependencies": {
     "express": "^4.16.3",
