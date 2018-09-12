@@ -1,5 +1,5 @@
 {
-    "apikey": "7cfae717a97344b6967ca93d7d669c60",
+    "apikey": "XXX",
     "timer": {
         "minimum": 72,
         "bits_per_minute": 100,
@@ -8,8 +8,8 @@
         "tier2_minutes": 15,
         "tier1_minutes": 5
     },
-    "oauth": "oauth:pq2hty4srsauldb1drk29l2txjsd51",
-    "clientid": "mlaomh4t1ylkqfgoe9mjbymifzm784",
+    "oauth": "oauth:XXX",
+    "clientid": "XXX",
     "user_id": "37958566",
     "username": "thedrakma",
     "channel": "#timmac",
