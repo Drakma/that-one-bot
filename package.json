@@ -19,5 +19,12 @@
   "homepage": "https://github.com/Drakma/that-one-bot#readme",
   "devDependencies": {
     "electron": "^2.0.9"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-ws": "^4.0.0",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "tmi.js": "^1.2.1"
   }
 }

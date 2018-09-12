@@ -1,19 +1,96 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
+  <meta charset="UTF-8">
+  <title>ThatOneAlerts</title>
+  <link rel='stylesheet' href='css/style.css'>
+  <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+  <script src="alerts.js"  type="text/javascript"></script>
+  <script src="irc.js"  type="text/javascript"></script>
+  <script src="//cdn.tmijs.org/js/latest/1.x/tmi.min.js"></script>
+  <script type="text/javascript">
+    var tws = new WebSocket('ws://localhost:3000/timer');
+    var togo = "";
+    setInterval(function() {
+      var objDiv = document.getElementById('chat');
+      objDiv.scrollTop = objDiv.scrollHeight;
+      timerTick();
+    }, 300);
+
+    tws.onopen = function () {
+      console.log('[MAIN] connected to Listener');
+    };
+
+    tws.onmessage = function (message) {
+      console.log(message);
+    };
+
+    function timerPause() {
+      var msg = {
+        "event": "PAUSE",
+      };
+      tws.send(JSON.stringify(msg));
+    };
+
+    function timerUnPause() {
+      var msg = {
+        "event": "UNPAUSE",
+      };
+      tws.send(JSON.stringify(msg));
+    };
+
+    function timerTick() {
+      var msg = {
+        "event": "TICK",
+      };
+      tws.send(JSON.stringify(msg));
+    };
+
+    function timerAddTime(minutes) {
+      var msg = {
+        "event": "ADD",
+        "minutes": minutes
+      };
+      tws.send(JSON.stringify(msg));
+    };
+    function timerSubtractTime(minutes) {
+      var msg = {
+        "event": "SUB",
+        "minutes": minutes
+      };
+      tws.send(JSON.stringify(msg));
+    };
+
+  </script>
 </head>
-
 <body>
-    <h1>Hello World!</h1>
-    We are using node
-    <script>document.write(process.versions.node)</script>,
-    Chrome
-    <script>document.write(process.versions.chrome)</script>,
-    and Electron
-    <script>document.write(process.versions.electron)</script>.
+  <div class=wrapper>
+    <div id="hashtags">
+      <a class=button>refresh</a>
+      <a class=button>save</a>
+      <a class=button>reset</a><br>
+      <ul id="kwords">
+      </ul>
+    </div>
+    <div id="timer">
+      <a class="button" href="javascript:timerPause()">pause</a>
+      <a class="button" href="javascript:timerUnPause()">unpause</a>
+      <p>
+        <a class="button" href="javascript:timerAddTime(1)">+ 1</a>
+        <a class="button" href="javascript:timerAddTime(5)">+ 5</a>
+        <a class="button" href="javascript:timerAddTime(10)">+ 10</a>
+        <a class="button" href="javascript:timerAddTime(60)">+ 60</a>
+      </p>
+      <p>
+        <a class="button" href="javascript:timerSubtractTime(1)">- 1</a>
+        <a class="button" href="javascript:timerSubtractTime(5)">- 5</a>
+        <a class="button" href="javascript:timerSubtractTime(10)">- 10</a>
+        <a class="button" href="javascript:timerSubtractTime(60)">- 60</a>
+      </p>
+      <div id="togo"></div>
+    </div>
+    <div id="chat">
+    </div>
+  </div>
 </body>
-
 </html>
